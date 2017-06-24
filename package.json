@@ -1,0 +1,17 @@
+{
+  "name": "cuba-datagen",
+  "version": "0.1.0",
+  "description": "Data generator for CUBA applications",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Vlad Minaev <minaev@haulmont.com>",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1"
+  },
+  "devDependencies": {
+    "webpack": "^3.0.0"
+  }
+}
