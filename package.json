@@ -16,11 +16,10 @@
     "babel-loader": "^7.1.0",
     "babel-preset-env": "^1.5.2",
     "babel-preset-react": "^6.24.1",
-    "babili-webpack-plugin": "^0.1.1",
     "html-webpack-plugin": "^2.29.0",
     "webpack": "^3.0.0",
     "webpack-dev-server": "^2.5.0"
   },
   "license": "Apache-2.0",
-  "author": "Vlad Minaev <minaev@haulmont.com>",
+  "author": "Vlad Minaev <minaev@haulmont.com>"
 }
