@@ -5,7 +5,11 @@ import "antd/lib/input/style/css"
 class Login extends React.Component {
 
   render() {
-    return <Input placeholder="REST url"/>
+    return (
+      <div>
+        <Input placeholder="REST url"/>
+      </div>
+    )
   }
 
 }
