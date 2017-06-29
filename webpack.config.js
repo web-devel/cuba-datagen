@@ -12,26 +12,31 @@ module.exports = {
   },
 
   module: {
-    rules: [
-      {
-        test: /\.js/,
-        include: path.resolve(__dirname, 'src'),
-        loader: 'babel-loader',
-        options: {
-          presets: [
-            'react',
-            ['env',
-              {
-                targets: ['uglifyjs'],
-              }
-            ]
-          ]
-        }
+    rules: [{
+      test: /\.js/,
+      include: path.resolve(__dirname, 'src'),
+      loader: 'babel-loader',
+      options: {
+        presets: [
+          'react',
+          ['env', {targets: ['uglifyjs'] }]
+        ]
       }
-    ]
+    }, {
+      test: /\.css/,
+      use: [
+        { loader: 'style-loader' },
+        { loader: 'css-loader' }
+      ]
+    }]
   },
 
   plugins: [
+    new webpack.DefinePlugin({
+      'process.env': {
+        'NODE_ENV': JSON.stringify('production')
+      }
+    }),
     new HtmlWebpackPlugin({
       inject: true,
       template: './public/index.html'
