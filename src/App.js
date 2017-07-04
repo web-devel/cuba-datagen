@@ -1,34 +1,33 @@
-import React from "react"
-import Row from 'antd/lib/row'
-import 'antd/lib/row/style/css'
-import Col from "antd/lib/col"
-import 'antd/lib/col/style/css'
-import Login from "./Login"
+import React, {Component} from "react"
+import Login from "./login/Login"
+import "./app.css"
 
-class App extends React.Component {
+class App extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      apiUrl: ''
-    }
+      apiUrl: 'http://localhost:8080/app/rest/'
+    };
   }
 
-  handleSubmit(event) {
-    event.preventDefault();
-    console.log(this.state);
+  onLoginSubmit = (e) => {
+    console.log(e);
   }
 
   render() {
-    return (
-      <div>
-        <Row>
-          <Col span={12} offset={6}>
-            <Login/>
-          </Col>
-        </Row>
-      </div>
-    )
+
+    const {apiUrl, metadata} = this.state;
+
+    if (!metadata) {
+      return (
+        <div className="login-screen">
+            <Login apiUrl={apiUrl}
+                   onLoginSubmit={this.onLoginSubmit}/>
+        </div>
+      )
+    }
+
   }
 }
 

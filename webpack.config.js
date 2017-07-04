@@ -2,6 +2,9 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
 
+process.env.BABEL_ENV = 'production';
+process.env.NODE_ENV = 'production';
+
 module.exports = {
 
   entry: './src/index.js',
@@ -15,12 +18,10 @@ module.exports = {
     rules: [{
       test: /\.js/,
       include: path.resolve(__dirname, 'src'),
+      exclude: /node_modules/,
       loader: 'babel-loader',
       options: {
-        presets: [
-          'react',
-          ['env', {targets: ['uglifyjs'] }]
-        ]
+        presets: ['react-app']
       }
     }, {
       test: /\.css/,
