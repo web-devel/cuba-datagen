@@ -7,7 +7,7 @@ process.env.NODE_ENV = 'production';
 
 module.exports = {
 
-  entry: './src/index.js',
+  entry: './src/index.tsx',
 
   output: {
     filename: 'bundle.js',
@@ -16,18 +16,25 @@ module.exports = {
 
   module: {
     rules: [{
-      test: /\.js/,
+      test: /\.(ts|tsx)$/,
       include: path.resolve(__dirname, 'src'),
       exclude: /node_modules/,
-      loader: 'babel-loader',
-      options: {
-        presets: ['react-app']
-      }
+      use: [
+        {
+          loader: 'babel-loader',
+          options: {
+            presets: ['react-app']
+          }
+        },
+        {
+          loader: 'ts-loader'
+        }
+      ],
     }, {
       test: /\.(css|scss)$/,
       use: [
-        { loader: 'style-loader' },
-        { loader: 'css-loader' }
+        {loader: 'style-loader'},
+        {loader: 'css-loader'}
       ]
     }]
   },
@@ -43,7 +50,10 @@ module.exports = {
       inject: true,
       template: './public/index.html'
     }),
-    new webpack.optimize.UglifyJsPlugin()
-  ]
+    // new webpack.optimize.UglifyJsPlugin()
+  ],
 
+  resolve: {
+    extensions: [ '.ts', '.tsx', ".js"]
+  }
 };

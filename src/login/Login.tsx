@@ -1,10 +1,16 @@
 import React from "react";
 
-class Login extends React.Component {
+interface Props {
+  apiUrl: string;
+  onLoginSubmit: (any) => any;
+  onProceedAsAnonymous: (any) => any;
+}
 
-  constructor(props) {
-    super(props);
-  }
+export default class Login extends React.Component<Props, any> {
+
+  private apiUrlInput: HTMLInputElement;
+  private loginInput: HTMLInputElement;
+  private passwordInput: HTMLInputElement;
 
   onSubmit = (e) => {
     e.preventDefault();
@@ -38,7 +44,6 @@ class Login extends React.Component {
             <label>Login (optional)</label>
             <input id="loginInput"
                    ref={node => this.loginInput = node}
-                   value={this.props.login}
                    style={{width: 240}}/>
           </div>
 
@@ -46,7 +51,6 @@ class Login extends React.Component {
             <label htmlFor="passwordInput">Password (optional)</label>
             <input id="passwordInput"
                    ref={node => this.passwordInput = node}
-                   value={this.props.password}
                    type="password"
                    style={{width: 240}}/>
           </div>
@@ -64,5 +68,3 @@ class Login extends React.Component {
   }
 
 }
-
-export default Login;

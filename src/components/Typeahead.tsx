@@ -1,9 +1,18 @@
 import React, {Component} from 'react';
 import './typeahead.css';
 
-export default class Typeahead extends Component {
+interface Props {
+  options: any[]
+}
 
-  state = {};
+interface State {
+  suggestions?: any[]
+}
+
+export default class Typeahead extends Component<Props, State> {
+
+  state:State = {};
+  private input: HTMLInputElement;
 
   handleKeyUp = () => {
     this.setState({

@@ -1,12 +1,19 @@
 import React, {Component} from "react";
 import Login from "./login/Login";
 import ModelSettings from "./ModelSettings";
+import cuba from "cuba-js-sdk";
 
 import "./app.css";
 
-import cuba from "cuba-js-sdk";
+interface State {
+  apiUrl: string;
+  metadata?: any[]; //todo
+}
 
-export default class App extends Component {
+export default class App extends Component<any, State> {
+
+  private cubaApp: cuba.CubaApp;
+
   constructor(props) {
     super(props);
     this.state = {

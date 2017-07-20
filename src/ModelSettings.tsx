@@ -1,14 +1,11 @@
 import React, {Component} from 'react';
 import Typeahead from "./components/Typeahead";
 
-export default class ModelSettings extends Component {
+interface Props {
+  entityInfos: any[];
+}
 
-  renderEntityOption(entityInfo) {
-    const {entityName} = entityInfo;
-    return (
-      <option>{entityName}</option>
-    );
-  }
+export default class ModelSettings extends Component<Props, any> {
 
   render() {
     const {entityInfos} = this.props;
