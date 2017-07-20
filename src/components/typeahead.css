@@ -1,0 +1,8 @@
+.typeahead {
+  display: inline-block;
+}
+
+.typeahead .suggestions {
+  max-height: 200px;
+  overflow: auto;
+}

@@ -15,6 +15,12 @@ class Login extends React.Component {
     });
   };
 
+  onProceedAsAnonymous = () => {
+    this.props.onProceedAsAnonymous({
+      apiUrl: this.apiUrlInput.value
+    });
+  };
+
   render() {
     return (
       <form onSubmit={this.onSubmit} className="pure-form pure-form-aligned">
@@ -45,8 +51,11 @@ class Login extends React.Component {
                    style={{width: 240}}/>
           </div>
 
-          <div className="pure-controls">
-            <button type="submit" className="pure-button pure-button-primary">Proceed</button>
+          <div className="pure-controls" style={{display: 'flex', justifyContent: 'center'}}>
+            <div className="pure-button-group" role="group" aria-label="Login buttons">
+              <button type="submit" className="pure-button pure-button-primary">Login</button>
+              <button type="button" onClick={this.onProceedAsAnonymous} className="pure-button">Anonymous</button>
+            </div>
           </div>
 
         </fieldset>

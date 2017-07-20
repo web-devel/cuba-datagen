@@ -1,9 +1,12 @@
-import React, {Component} from "react"
-import Login from "./login/Login"
-import "./app.css"
+import React, {Component} from "react";
+import Login from "./login/Login";
+import ModelSettings from "./ModelSettings";
 
-class App extends Component {
+import "./app.css";
 
+import cuba from "cuba-js-sdk";
+
+export default class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -11,9 +14,31 @@ class App extends Component {
     };
   }
 
-  onLoginSubmit = (e) => {
-    console.log(e);
+  onLoginSubmit = (data) => {
+    this.initializeCubaApp(data);
+    this.cubaApp.login(data.login, data.password).then(() => {
+      this.loadMetadata();
+    }).catch(() => {
+      alert('Failed to log in');
+    });
+  };
+
+  onProceedAsAnonymous = (data) => {
+    this.initializeCubaApp(data);
+    this.loadMetadata();
+  };
+
+  initializeCubaApp(data) {
+    this.cubaApp = cuba.initializeApp({apiUrl: data.apiUrl, name: "cubaDatagen"});
   }
+
+  loadMetadata = () => {
+    this.cubaApp.loadMetadata().then((metadata) => {
+      this.setState({...this.state, metadata});
+    });
+    this.cubaApp.loadEntities('sec$User');
+    this.cubaApp.getPermissions();
+  };
 
   render() {
 
@@ -22,13 +47,18 @@ class App extends Component {
     if (!metadata) {
       return (
         <div className="login-screen">
-            <Login apiUrl={apiUrl}
-                   onLoginSubmit={this.onLoginSubmit}/>
+          <Login apiUrl={apiUrl}
+                 onLoginSubmit={this.onLoginSubmit}
+                 onProceedAsAnonymous={this.onProceedAsAnonymous}/>
         </div>
-      )
+      );
     }
+
+    return (
+      <div>
+        <ModelSettings entityInfos={metadata}/>
+      </div>
+    )
 
   }
 }
-
-export default App;

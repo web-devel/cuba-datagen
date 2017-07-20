@@ -24,7 +24,7 @@ module.exports = {
         presets: ['react-app']
       }
     }, {
-      test: /\.css/,
+      test: /\.(css|scss)$/,
       use: [
         { loader: 'style-loader' },
         { loader: 'css-loader' }
@@ -33,6 +33,7 @@ module.exports = {
   },
 
   plugins: [
+    new webpack.HotModuleReplacementPlugin(),
     new webpack.DefinePlugin({
       'process.env': {
         'NODE_ENV': JSON.stringify('production')
