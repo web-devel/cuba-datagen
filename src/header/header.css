@@ -2,3 +2,7 @@
   background: #000;
   min-height: 40px;
 }
+
+.header h2 {
+  color: #FFF;
+}

@@ -61,7 +61,7 @@ export default class App extends Component<any, State> {
 
     return (
       <div>
-        <Header/>
+        <Header apiUrl={apiUrl}/>
         <div>
           <ModelSettings entityInfos={metadata}/>
         </div>

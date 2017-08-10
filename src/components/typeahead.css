@@ -6,3 +6,7 @@
   max-height: 200px;
   overflow: auto;
 }
+
+.typeahead .down {
+  display: inline-block;
+}

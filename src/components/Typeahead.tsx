@@ -1,20 +1,22 @@
 import React, {Component} from 'react';
 import './typeahead.css';
 
-
-interface Props {
+export interface Props {
   options: any[];
   captionProperty: string;
   keyProperty?: string;
 }
 
 interface State {
+  suggestionsShown: boolean;
   suggestions?: any[]
 }
 
 export default class Typeahead extends Component<Props, State> {
 
-  state: State = {};
+  state: State = {
+    suggestionsShown: false
+  };
 
   handleKeyUp = e => {
     const text = e.target.value.trim();
@@ -35,6 +37,7 @@ export default class Typeahead extends Component<Props, State> {
     return (
       <div className="typeahead">
         <input type="text" onKeyUp={this.handleKeyUp}/>
+        <div className="down">▼</div>
         {(suggestions && suggestions.length > 0) &&
         <div className="suggestions">
           {suggestions.map((suggestion) =>
