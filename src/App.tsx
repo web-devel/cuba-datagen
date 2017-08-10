@@ -4,7 +4,7 @@ import ModelSettings from "./ModelSettings";
 import * as cuba from "cuba-js-sdk";
 import IMetaClassInfo = cuba.IMetaClassInfo;
 
-import "./app.css";
+import "./app.scss";
 import Header from "./header/Header";
 
 interface State {

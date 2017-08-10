@@ -1,0 +1,12 @@
+.typeahead {
+  display: inline-block;
+
+  .suggestions {
+    max-height: 200px;
+    overflow: auto;
+  }
+
+  .down {
+    display: inline-block;
+  }
+}

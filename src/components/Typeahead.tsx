@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import './typeahead.css';
+import './typeahead.scss';
 
 export interface Props {
   options: any[];
