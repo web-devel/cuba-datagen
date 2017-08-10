@@ -5,6 +5,7 @@ import * as cuba from "cuba-js-sdk";
 import IMetaClassInfo = cuba.IMetaClassInfo;
 
 import "./app.css";
+import Header from "./header/Header";
 
 interface State {
   apiUrl: string;
@@ -60,7 +61,10 @@ export default class App extends Component<any, State> {
 
     return (
       <div>
-        <ModelSettings entityInfos={metadata}/>
+        <Header/>
+        <div>
+          <ModelSettings entityInfos={metadata}/>
+        </div>
       </div>
     )
 
