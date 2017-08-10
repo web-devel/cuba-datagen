@@ -1,13 +1,14 @@
 import React, {Component} from "react";
-import Login from "./login/Login";
+import Login, {LoginDetails} from "./login/Login";
 import ModelSettings from "./ModelSettings";
-import cuba from "cuba-js-sdk";
+import * as cuba from "cuba-js-sdk";
+import IMetaClassInfo = cuba.IMetaClassInfo;
 
 import "./app.css";
 
 interface State {
   apiUrl: string;
-  metadata?: any[]; //todo
+  metadata?: IMetaClassInfo[];
 }
 
 export default class App extends Component<any, State> {
@@ -21,23 +22,19 @@ export default class App extends Component<any, State> {
     };
   }
 
-  onLoginSubmit = (data) => {
-    this.initializeCubaApp(data);
-    this.cubaApp.login(data.login, data.password).then(() => {
+  onLoginSubmit = (details: LoginDetails) => {
+    this.cubaApp = new cuba.CubaApp("", details.apiUrl);
+    this.cubaApp.login(details.login, details.password).then(() => {
       this.loadMetadata();
     }).catch(() => {
       alert('Failed to log in');
     });
   };
 
-  onProceedAsAnonymous = (data) => {
-    this.initializeCubaApp(data);
+  onProceedAsAnonymous = (details: LoginDetails) => {
+    this.cubaApp = new cuba.CubaApp("", details.apiUrl);
     this.loadMetadata();
   };
-
-  initializeCubaApp(data) {
-    this.cubaApp = cuba.initializeApp({apiUrl: data.apiUrl, name: "cubaDatagen"});
-  }
 
   loadMetadata = () => {
     this.cubaApp.loadMetadata().then((metadata) => {

@@ -12,7 +12,7 @@ export default class ModelSettings extends Component<Props, any> {
 
     return (
       <div>
-        <Typeahead options={entityInfos}/>
+        <Typeahead options={entityInfos} captionProperty="entityName"/>
       </div>
     );
   }

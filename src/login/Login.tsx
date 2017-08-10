@@ -1,12 +1,18 @@
-import React from "react";
+import React, {Component} from "react";
 
 interface Props {
   apiUrl: string;
-  onLoginSubmit: (any) => any;
-  onProceedAsAnonymous: (any) => any;
+  onLoginSubmit: (details: LoginDetails) => any;
+  onProceedAsAnonymous: (details: LoginDetails) => any;
 }
 
-export default class Login extends React.Component<Props, any> {
+export interface LoginDetails {
+  apiUrl: string,
+  login?: string,
+  password?: string
+}
+
+export default class Login extends Component<Props, any> {
 
   private apiUrlInput: HTMLInputElement;
   private loginInput: HTMLInputElement;
