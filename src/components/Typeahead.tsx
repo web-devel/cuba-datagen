@@ -9,7 +9,8 @@ export interface Props {
 
 interface State {
   suggestionsShown: boolean;
-  suggestions?: any[]
+  suggestions?: any[];
+  inputValue?: string;
 }
 
 export default class Typeahead extends Component<Props, State> {
@@ -18,27 +19,29 @@ export default class Typeahead extends Component<Props, State> {
     suggestionsShown: false
   };
 
-  handleKeyUp = e => {
+  private handleKeyUp = e => {
     const text = e.target.value.trim();
-    this.setState(function (prevState: State, props: Props) {
-      return {
-        suggestions: props.options.filter((opt) => {
-          return opt[props.captionProperty].indexOf(text) > -1;
-        })
-      }
-    });
+    this.setState(prevState => ({...prevState, inputValue: text}));
+  };
+
+  private toggleSuggestions = () => {
+    this.setState(prevState => ({...prevState, suggestionsShown: !prevState.suggestionsShown}));
   };
 
   render() {
 
-    const {keyProperty, captionProperty} = this.props;
-    const {suggestions} = this.state;
+    const {options, keyProperty, captionProperty} = this.props;
+    const {suggestionsShown, inputValue} = this.state;
+
+    const suggestions = options.filter((opt) => {
+      return opt[captionProperty].indexOf(inputValue) > -1;
+    });
 
     return (
       <div className="typeahead">
         <input type="text" onKeyUp={this.handleKeyUp}/>
-        <div className="down">▼</div>
-        {(suggestions && suggestions.length > 0) &&
+        <a className="toggler" onClick={this.toggleSuggestions}>▼</a>
+        {suggestionsShown &&
         <div className="suggestions">
           {suggestions.map((suggestion) =>
             <div key={suggestion[keyProperty ? keyProperty : captionProperty]}
