@@ -1,17 +1,20 @@
 import * as React from 'react';
 import './App.css';
-import Login from './Login';
-import {CubaApp} from "@cuba-platform/rest/dist-node/cuba";
-import ServerForm from "./ServerForm";
+import Login from './login/Login';
+import {CubaApp, initializeApp} from "@cuba-platform/rest/dist-node/cuba";
+import AppUrlForm from "./login/AppUrlForm";
 
-class App extends React.Component {
+interface State {
+  loggedIn: boolean;
+  cubaApp?: CubaApp;
+}
 
-  state: {
-    loggedIn: boolean
-    cubaApp?: CubaApp;
-  };
+interface Props {
+}
 
-  constructor(props: {} = {}) {
+class App extends React.Component<Props, State> {
+
+  constructor(props: Props) {
     super(props);
     this.state = {
       loggedIn: false
@@ -22,16 +25,17 @@ class App extends React.Component {
     this.setState({loggedIn: true});
   };
 
-  private handleServerUrlSet = () => {
-    this.setState({cubaAp: new CubaApp()})
+  private handleAppUrlSet = (apiUrl: string) => {
+    const cubaApp = initializeApp({apiUrl});
+    this.setState({cubaApp});
   };
 
   render() {
     const {loggedIn, cubaApp} = this.state;
     return (
       <div className="App">
-        {! cubaApp
-          ? <ServerForm appUrl={'http://localhost:8080/app'} onProceed={this.handleServerUrlSet}/>
+        {!cubaApp
+          ? <AppUrlForm appUrl={'http://localhost:8080/app/'} onProceed={this.handleAppUrlSet}/>
           : loggedIn
             ? <div>You are logged in</div>
             : <Login onLogin={this.handleLogin}/>
