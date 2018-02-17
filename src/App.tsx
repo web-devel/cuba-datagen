@@ -36,7 +36,7 @@ class App extends React.Component<Props, State> {
     return (
       <div className="App">
         {!cubaApp
-          ? <AppUrlForm appUrl={'http://localhost:8080/app/'} onProceed={this.handleAppUrlSet}/>
+          ? <AppUrlForm appUrl={'http://localhost:8080/app/rest/'} onProceed={this.handleAppUrlSet}/>
           : loggedIn
             ? <Main cubaApp={cubaApp}/>
             : <Login onLogin={this.handleLogin} cubaApp={cubaApp}/>
