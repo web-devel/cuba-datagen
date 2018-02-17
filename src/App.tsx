@@ -3,6 +3,7 @@ import './App.css';
 import Login from './login/Login';
 import {CubaApp, initializeApp} from "@cuba-platform/rest/dist-node/cuba";
 import AppUrlForm from "./login/AppUrlForm";
+import Main from "./main/Main";
 
 interface State {
   loggedIn: boolean;
@@ -37,8 +38,8 @@ class App extends React.Component<Props, State> {
         {!cubaApp
           ? <AppUrlForm appUrl={'http://localhost:8080/app/'} onProceed={this.handleAppUrlSet}/>
           : loggedIn
-            ? <div>You are logged in</div>
-            : <Login onLogin={this.handleLogin}/>
+            ? <Main cubaApp={cubaApp}/>
+            : <Login onLogin={this.handleLogin} cubaApp={cubaApp}/>
         }
       </div>
     );

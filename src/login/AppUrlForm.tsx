@@ -26,7 +26,7 @@ export default function AppUrlForm(props: Props) {
           input = inp;
         }}
         type="text"
-        value={props.appUrl}
+        defaultValue={props.appUrl}
         placeholder="CUBA App URL"
       />
       <button type="submit">Proceed</button>
