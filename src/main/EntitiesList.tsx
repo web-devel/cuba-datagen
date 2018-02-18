@@ -10,11 +10,13 @@ export default class EntitiesList extends React.Component<Props> {
   render() {
     const {metaClasses} = this.props;
     return (
-      <div>
+      <ul>
         {metaClasses.map(metaClass =>
-          <a href="#" key={metaClass.entityName}>{metaClass.entityName}</a>
+          <li key={metaClass.entityName}>
+            <a href="#">{metaClass.entityName}</a>
+          </li>
         )}
-      </div>
+      </ul>
     );
   }
 

@@ -16,7 +16,7 @@ export default class Login extends React.Component<Props, State> {
 
   constructor(props: Props) {
     super(props);
-    this.state = {login: '', password: ''};
+    this.state = {login: 'admin', password: 'admin'};
   }
 
   handleLogin = (e: FormEvent<HTMLFormElement>) => {
