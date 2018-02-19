@@ -3,6 +3,7 @@ import {CubaApp} from "@cuba-platform/rest/dist-node/cuba";
 import {MetaClassInfo, View} from "@cuba-platform/rest/dist-node/model";
 import EntitiesList from "./EntitiesList";
 import EntityForm from "./EntityForm";
+import './main.css';
 
 interface Props {
   cubaApp: CubaApp;
@@ -28,11 +29,17 @@ export default class Main extends React.Component<Props, State> {
       .catch(() => alert('Failed to load metadata'));
   }
 
+  selectEntity = (entity: MetaClassInfo):void => {
+    this.props.cubaApp.loadEntityViews(entity.entityName).then((entityViews) => {
+      this.setState({entity, entityViews});  
+    });
+  };
+
   render() {
     const {metadata, entity, entityViews} = this.state;
     return (
-      <div>
-        <EntitiesList metaClasses={metadata}/>
+      <div className={'main'}>
+        <EntitiesList metaClasses={metadata} onEntitySelect={this.selectEntity}/>
         <EntityForm views={entityViews} entity={entity}/>
       </div>
     );

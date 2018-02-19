@@ -9,11 +9,22 @@ interface Props {
 class EntityForm extends React.Component<Props> {
 
   render() {
-    return(
-      <div>
+    const {entity, views} = this.props;
 
+    if (!entity || !views) {
+      return (
+        <div>Please choose entity</div>
+      );
+    }
+
+    return (
+      <div>
+        <p>{entity!.entityName}</p>
+        <select>{views.map(view =>
+          <option key={view.name}>{view.name}</option>)}
+        </select>
       </div>
-    )
+    );
   }
 }
 
