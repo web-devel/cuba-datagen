@@ -10,7 +10,7 @@ interface Props {
 }
 
 interface State {
-  metadata: Array<MetaClassInfo>;
+  metadata: MetaClassInfo[];
   entity?: MetaClassInfo;
   entityViews?: View[];
 }
@@ -40,7 +40,7 @@ export default class Main extends React.Component<Props, State> {
     return (
       <div className={'main'}>
         <EntitiesList metaClasses={metadata} onEntitySelect={this.selectEntity}/>
-        <EntityForm views={entityViews} entity={entity}/>
+        <EntityForm views={entityViews} entity={entity} metadata={metadata}/>
       </div>
     );
   }

@@ -4,9 +4,20 @@ import {MetaClassInfo, View} from "@cuba-platform/rest/dist-node/model";
 interface Props {
   views?: View[];
   entity?: MetaClassInfo;
+  metadata: MetaClassInfo[];
 }
 
-class EntityForm extends React.Component<Props> {
+interface State {
+  view?: View;
+}
+
+class EntityForm extends React.Component<Props, State> {
+
+  selectView = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedView = e.target.value;
+    const view = this.props.views!.find( v => v.name === selectedView);
+    this.setState({view});
+  };
 
   render() {
     const {entity, views} = this.props;
@@ -20,8 +31,8 @@ class EntityForm extends React.Component<Props> {
     return (
       <div>
         <p>{entity!.entityName}</p>
-        <select>{views.map(view =>
-          <option key={view.name}>{view.name}</option>)}
+        <select onChange={this.selectView}>{views.map(view =>
+          <option key={view.name} value={view.name}>{view.name}</option>)}
         </select>
       </div>
     );
