@@ -4,23 +4,16 @@ import Login from './login/Login';
 import {CubaApp, initializeApp} from "@cuba-platform/rest/dist-node/cuba";
 import AppUrlForm from "./login/AppUrlForm";
 import Main from "./main/Main";
+import {connect} from "react-redux";
+import {AppState} from "./state";
 
-interface State {
+interface Props {
   loggedIn: boolean;
+  appUrl?: string;
   cubaApp?: CubaApp;
 }
 
-interface Props {
-}
-
-class App extends React.Component<Props, State> {
-
-  constructor(props: Props) {
-    super(props);
-    this.state = {
-      loggedIn: false
-    };
-  }
+class App extends React.Component<Props> {
 
   private handleLogin = () => {
     this.setState({loggedIn: true});
@@ -32,11 +25,11 @@ class App extends React.Component<Props, State> {
   };
 
   render() {
-    const {loggedIn, cubaApp} = this.state;
+    const {loggedIn, appUrl, cubaApp} = this.props;
     return (
       <div className="App">
         {!cubaApp
-          ? <AppUrlForm appUrl={'http://localhost:8080/app/rest/'} onProceed={this.handleAppUrlSet}/>
+          ? <AppUrlForm appUrl={appUrl} onProceed={this.handleAppUrlSet}/>
           : loggedIn
             ? <Main cubaApp={cubaApp}/>
             : <Login onLogin={this.handleLogin} cubaApp={cubaApp}/>
@@ -46,4 +39,12 @@ class App extends React.Component<Props, State> {
   }
 }
 
-export default App;
+function mapStateToProps(state: AppState):Props {
+  return {
+    appUrl: state.appUrl,
+    loggedIn: state.loggedIn,
+    cubaApp: state.cubaApp
+  };
+}
+
+export default connect(mapStateToProps)(App);

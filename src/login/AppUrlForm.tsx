@@ -2,7 +2,7 @@ import * as React from 'react';
 import {FormEvent} from "react";
 
 interface Props {
-  appUrl: string;
+  appUrl?: string;
   onProceed: (url: string) => void;
 }
 
