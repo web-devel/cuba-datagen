@@ -1,5 +1,6 @@
 import * as React from 'react';
 import {FormEvent} from "react";
+import {DEFAULT_APP_URL} from "../index";
 
 interface Props {
   appUrl?: string;
@@ -26,7 +27,7 @@ export default function AppUrlForm(props: Props) {
           input = inp;
         }}
         type="text"
-        defaultValue={props.appUrl}
+        defaultValue={DEFAULT_APP_URL}
         placeholder="CUBA App URL"
       />
       <button type="submit">Proceed</button>

@@ -1,12 +1,15 @@
 import {
-  Actions, ActionType, EntitySelectedAction, EntityViewsLoadedAction, MetadataLoadedAction,
+  Actions,
+  ActionType,
+  EntitySelectedAction,
+  EntityViewsLoadedAction,
+  MetadataLoadedAction,
   SetAppUrlAction
 } from "./actions";
 import {CubaApp} from "@cuba-platform/rest/dist-node/cuba";
-import {DEFAULT_APP_URL} from "../index";
 import {MetaClassInfo, View} from "@cuba-platform/rest/dist-node/model";
 
-export const appUrl = (urlState: string = DEFAULT_APP_URL, action: Actions): string => {
+export const appUrl = (urlState: string | null = null, action: Actions): string | null => {
   if (action.type === ActionType.SET_APP_URL) {
     return (action as SetAppUrlAction).appUrl;
   }
