@@ -1,42 +1,37 @@
 import * as React from "react";
-import {CubaApp} from "@cuba-platform/rest/dist-node/cuba";
 import {FormEvent} from "react";
+import {connect} from "react-redux";
+import {Dispatch} from "redux";
+import {Actions, login} from "../redux/actions";
 
 interface Props {
-  cubaApp: CubaApp;
-  onLogin: () => void;
+  login(login: string, pass: string): void;
 }
 
 interface State {
-  login: string;
+  username: string;
   password: string;
 }
 
-export default class Login extends React.Component<Props, State> {
+class Login extends React.Component<Props, State> {
 
   constructor(props: Props) {
     super(props);
-    this.state = {login: 'admin', password: 'admin'};
+    this.state = {username: 'admin', password: 'admin'};
   }
 
-  handleLogin = (e: FormEvent<HTMLFormElement>) => {
+  handleLoginFormSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    this.props.cubaApp.login(this.state.login, this.state.password)
-      .then(() => {
-        this.props.onLogin();
-      })
-      .catch(() => {
-        alert('Failed to login');
-      });
+    this.props.login(this.state.username, this.state.password);
   };
 
   render() {
-    const {login, password} = this.state;
+    const {username, password} = this.state;
     return (
-      <form onSubmit={this.handleLogin}>
+      <form onSubmit={this.handleLoginFormSubmit}>
         <input
-          value={login}
-          onChange={e => this.setState({login: e.target.value})}
+          value={username}
+          onChange={e => this.setState({username: e.target.value})}
           placeholder="Login"
           type="text"
         />
@@ -52,3 +47,11 @@ export default class Login extends React.Component<Props, State> {
     );
   }
 }
+
+const mapDispatchToProps = (dispatch: Dispatch<Actions>) => ({
+  login(username: string, pass: string): void {
+    dispatch(login(username, pass));
+  }
+});
+
+export default connect(null, mapDispatchToProps)(Login);

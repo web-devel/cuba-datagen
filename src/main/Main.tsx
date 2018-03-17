@@ -1,48 +1,45 @@
 import * as React from 'react';
-import {CubaApp} from "@cuba-platform/rest/dist-node/cuba";
 import {MetaClassInfo, View} from "@cuba-platform/rest/dist-node/model";
 import EntitiesList from "./EntitiesList";
 import EntityForm from "./EntityForm";
 import './main.css';
+import {connect} from "react-redux";
+import {AppState} from "../redux/store";
+import {Actions, selectEntity} from "../redux/actions";
+import {Dispatch} from "redux";
 
 interface Props {
-  cubaApp: CubaApp;
-}
-
-interface State {
   metadata: MetaClassInfo[];
   entity?: MetaClassInfo;
   entityViews?: View[];
+
+  onEntitySelect(entity: MetaClassInfo): void;
 }
 
-export default class Main extends React.Component<Props, State> {
-
-  state: State = {metadata: []};
-
-  constructor(props: Props) {
-    super(props);
-  }
-
-  componentDidMount() {
-    this.props.cubaApp.loadMetadata()
-      .then(metadata => this.setState({metadata}))
-      .catch(() => alert('Failed to load metadata'));
-  }
-
-  selectEntity = (entity: MetaClassInfo):void => {
-    this.props.cubaApp.loadEntityViews(entity.entityName).then((entityViews) => {
-      this.setState({entity, entityViews});  
-    });
-  };
+class Main extends React.Component<Props> {
 
   render() {
-    const {metadata, entity, entityViews} = this.state;
+    const {metadata, entity, entityViews, onEntitySelect} = this.props;
     return (
       <div className={'main'}>
-        <EntitiesList metaClasses={metadata} onEntitySelect={this.selectEntity}/>
+        <EntitiesList metaClasses={metadata} onEntitySelect={onEntitySelect}/>
         <EntityForm views={entityViews} entity={entity} metadata={metadata}/>
       </div>
     );
   }
-
 }
+
+const mapStateToProps = ({metadata, entity, entityViews}: AppState): Partial<Props> => {
+  return {metadata, entity, entityViews};
+};
+
+const mapDispatchToProps = (dispatch: Dispatch<Actions>): Partial<Props> => {
+  return {
+    onEntitySelect: (entity: MetaClassInfo): void => {
+      dispatch(selectEntity(entity));
+    }
+  };
+};
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(Main);

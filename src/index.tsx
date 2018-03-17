@@ -3,14 +3,17 @@ import * as ReactDOM from 'react-dom';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import './index.css';
-import {initStore} from "./state";
-import { Provider } from 'react-redux';
+import {AppState, initStore} from "./redux/store";
+import {Provider} from 'react-redux';
+import {Store} from "redux";
 
-const store = initStore();
+export const DEFAULT_APP_URL = 'http://localhost:8080/app/rest/';
+
+export const store: Store<AppState> = initStore();
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <App/>
   </Provider>,
   document.getElementById('root') as HTMLElement
 );

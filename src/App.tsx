@@ -1,50 +1,46 @@
 import * as React from 'react';
 import './App.css';
 import Login from './login/Login';
-import {CubaApp, initializeApp} from "@cuba-platform/rest/dist-node/cuba";
 import AppUrlForm from "./login/AppUrlForm";
 import Main from "./main/Main";
 import {connect} from "react-redux";
-import {AppState} from "./state";
+import {AppState} from "./redux/store";
+import {Dispatch} from "redux";
+import {Actions, setAppUrl} from "./redux/actions";
 
 interface Props {
   loggedIn: boolean;
   appUrl?: string;
-  cubaApp?: CubaApp;
+  handleAppUrlSet: (apiUrl: string) => void;
 }
 
 class App extends React.Component<Props> {
-
-  private handleLogin = () => {
-    this.setState({loggedIn: true});
-  };
-
-  private handleAppUrlSet = (apiUrl: string) => {
-    const cubaApp = initializeApp({apiUrl});
-    this.setState({cubaApp});
-  };
-
   render() {
-    const {loggedIn, appUrl, cubaApp} = this.props;
+    const {loggedIn, appUrl, handleAppUrlSet} = this.props;
     return (
       <div className="App">
-        {!cubaApp
-          ? <AppUrlForm appUrl={appUrl} onProceed={this.handleAppUrlSet}/>
+        {!appUrl
+          ? <AppUrlForm appUrl={appUrl} onProceed={handleAppUrlSet}/>
           : loggedIn
-            ? <Main cubaApp={cubaApp}/>
-            : <Login onLogin={this.handleLogin} cubaApp={cubaApp}/>
+            ? <Main/>
+            : <Login/>
         }
       </div>
     );
   }
 }
 
-function mapStateToProps(state: AppState):Props {
+const mapStateToProps = (state: AppState): Partial<Props> => {
   return {
     appUrl: state.appUrl,
-    loggedIn: state.loggedIn,
-    cubaApp: state.cubaApp
+    loggedIn: state.loggedIn
   };
-}
+};
 
-export default connect(mapStateToProps)(App);
+const mapDispatchToProps = (dispatch: Dispatch<Actions>): Partial<Props> => {
+  return {
+    handleAppUrlSet: (url: string) => dispatch(setAppUrl(url))
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
