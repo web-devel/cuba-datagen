@@ -8,6 +8,7 @@ import {Provider} from 'react-redux';
 import {Store} from "redux";
 
 export const DEFAULT_APP_URL = 'http://localhost:8080/app/rest/';
+export const APP_NAME = 'cuba-datagen';
 
 export const store: Store<AppState> = initStore();
 

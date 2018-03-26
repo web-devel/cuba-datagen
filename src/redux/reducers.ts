@@ -8,6 +8,7 @@ import {
 } from "./actions";
 import {CubaApp} from "@cuba-platform/rest/dist-node/cuba";
 import {MetaClassInfo, View} from "@cuba-platform/rest/dist-node/model";
+import {APP_NAME} from "../index";
 
 export const appUrl = (urlState: string | null = null, action: Actions): string | null => {
   if (action.type === ActionType.SET_APP_URL) {
@@ -18,7 +19,7 @@ export const appUrl = (urlState: string | null = null, action: Actions): string 
 
 export const cubaApp = (app: CubaApp | null = null, action: Actions): CubaApp | null => {
   if (action.type === ActionType.SET_APP_URL) {
-    return new CubaApp("cuba-datagen", (action as SetAppUrlAction).appUrl);
+    return new CubaApp(APP_NAME, (action as SetAppUrlAction).appUrl);
   }
   return app;
 };
@@ -46,7 +47,22 @@ export const entity = (entityState: MetaClassInfo | null = null, action: Actions
 
 export const entityViews = (entityViewsState: View[] | null = null, action: Actions): View[] | null => {
   if (action.type === ActionType.ENTITY_VIEWS_LOADED) {
-    return (action as EntityViewsLoadedAction).entityViews;
+    const {metaClassInfo, loadedViews} = (action as EntityViewsLoadedAction);
+    return [...composeBuiltInViews(metaClassInfo), ...loadedViews];
   }
   return entityViewsState;
 };
+
+
+/**
+ * TODO not enough info to compose _minimal and _base views
+ */
+function composeBuiltInViews(metaClassInfo: MetaClassInfo): View[] {
+  return [{
+    name: '_local',
+    entity: metaClassInfo.entityName,
+    properties: metaClassInfo.properties
+      .filter(({attributeType}) => attributeType === "DATATYPE" || attributeType === "ENUM")
+      .map(({name}) => name)
+  }];
+}

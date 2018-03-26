@@ -61,14 +61,15 @@ export const login = (username: string, password: string) => (dispatch: Dispatch
     .catch(() => dispatch({type: ActionType.LOGIN_FAILURE}));
 };
 
-export const selectEntity = (entity: MetaClassInfo) => (dispatch: Dispatch<Actions>) => {
-  dispatch({
+export const selectEntity = (metaClassInfo: MetaClassInfo) => (dispatch: Dispatch<Actions>) => {
+  dispatch<EntitySelectedAction>({
     type: ActionType.ENTITY_SELECTED,
-    entity: entity
+    entity: metaClassInfo
   });
-  return store.getState().cubaApp!.loadEntityViews(entity.entityName).then((entityViews) => {
-    dispatch({
-      entityViews,
+  return store.getState().cubaApp!.loadEntityViews(metaClassInfo.entityName).then((loadedViews) => {
+    dispatch<EntityViewsLoadedAction>({
+      loadedViews,
+      metaClassInfo,
       type: ActionType.ENTITY_VIEWS_LOADED,
     });
   });
@@ -79,7 +80,8 @@ export interface EntitySelectedAction extends AppAction {
 }
 
 export interface EntityViewsLoadedAction extends AppAction {
-  entityViews: View[];
+  loadedViews: View[];
+  metaClassInfo: MetaClassInfo;
 }
 
 export type Actions = SetAppUrlAction | LoginAction | MetadataLoadedAction | EntitySelectedAction
