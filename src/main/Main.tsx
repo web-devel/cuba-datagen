@@ -22,7 +22,7 @@ class Main extends React.Component<Props> {
     const {metadata, entity, entityViews, onEntitySelect} = this.props;
     return (
       <div className={'main'}>
-        <EntitiesList metaClasses={metadata} onEntitySelect={onEntitySelect}/>
+        <EntitiesList metaClasses={metadata} onEntitySelect={onEntitySelect} className={'drawer'}/>
         <EntityForm views={entityViews} entity={entity} metadata={metadata}/>
       </div>
     );

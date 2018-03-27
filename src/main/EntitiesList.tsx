@@ -1,7 +1,8 @@
 import * as React from 'react';
 import {MetaClassInfo} from "@cuba-platform/rest/dist-node/model";
+import {HTMLProps} from "react";
 
-interface Props {
+interface Props extends HTMLProps<EntitiesList> {
   metaClasses: MetaClassInfo[];
   onEntitySelect: (entity: MetaClassInfo) => void;
 }

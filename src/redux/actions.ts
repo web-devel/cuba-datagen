@@ -33,7 +33,16 @@ export const setAppUrl = (appUrl: string): SetAppUrlAction => ({
 
 export const loadMetadata = () => (dispatch: Dispatch<Actions>) => {
   dispatch({type: ActionType.METADATA_REQUESTED});
-  return store.getState().cubaApp!.loadMetadata().then((metadata: MetaClassInfo[]) => {
+  return store.getState().cubaApp!.loadMetadata().then((entities: MetaClassInfo[]) => {
+    const metadata = entities.sort((a, b) => {
+      if (a.entityName.toLowerCase() > b.entityName.toLowerCase()) {
+        return 1;
+      }
+      if (a.entityName.toLowerCase() < b.entityName.toLowerCase()) {
+        return -1;
+      }
+      return 0;
+    });
     return dispatch({
       metadata,
       type: ActionType.METADATA_LOADED
