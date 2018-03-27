@@ -54,6 +54,7 @@ export const entityViews = (entityViewsState: View[] | null = null, action: Acti
 };
 
 
+
 /**
  * TODO not enough info to compose _minimal and _base views
  */

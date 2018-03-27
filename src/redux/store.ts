@@ -9,8 +9,9 @@ export interface AppState {
   cubaApp?: CubaApp; // todo avoid
   appUrl?: string;
   metadata: MetaClassInfo[];
-  entity?: MetaClassInfo;
   entityViews?: View[];
+  entity?: MetaClassInfo;
+  view: View;
 }
 
 export function initStore(): Store<AppState> {
@@ -21,7 +22,8 @@ export function initStore(): Store<AppState> {
       loggedIn,
       metadata,
       entity,
-      entityViews
+      entityViews,
+
     }),
     applyMiddleware(thunk)
   );

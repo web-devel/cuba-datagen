@@ -13,7 +13,8 @@ export const enum ActionType {
   METADATA_LOADED = 'METADATA_LOADED',
 
   ENTITY_SELECTED = 'ENTITY_SELECTED',
-  ENTITY_VIEWS_LOADED = 'ENTITY_VIEWS_LOADED'
+  ENTITY_VIEWS_LOADED = 'ENTITY_VIEWS_LOADED',
+  VIEW_SELECTED = 'VIEW_SELECTED'
 }
 
 export interface AppAction extends Action {
@@ -84,8 +85,19 @@ export const selectEntity = (metaClassInfo: MetaClassInfo) => (dispatch: Dispatc
   });
 };
 
+export const selectView = (view: View): ViewSelectedAction => {
+  return {
+    type: ActionType.VIEW_SELECTED,
+    view: view
+  };
+};
+
 export interface EntitySelectedAction extends AppAction {
   entity: MetaClassInfo;
+}
+
+export interface ViewSelectedAction extends AppAction {
+  view: View;
 }
 
 export interface EntityViewsLoadedAction extends AppAction {

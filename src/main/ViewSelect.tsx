@@ -5,18 +5,17 @@ interface Props {
   views?: View[];
   entity?: MetaClassInfo;
   metadata: MetaClassInfo[];
+  onViewSelect: (view: View) => void;
 }
 
-interface State {
-  view?: View;
-}
-
-class EntityForm extends React.Component<Props, State> {
+class ViewSelect extends React.Component<Props> {
 
   selectView = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedView = e.target.value;
     const view = this.props.views!.find( v => v.name === selectedView);
-    this.setState({view});
+    if (view) {
+      this.props.onViewSelect(view);
+    }
   };
 
   render() {
@@ -39,4 +38,4 @@ class EntityForm extends React.Component<Props, State> {
   }
 }
 
-export default EntityForm;
+export default ViewSelect;
