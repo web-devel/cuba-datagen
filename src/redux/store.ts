@@ -11,7 +11,7 @@ export interface AppState {
   metadata: MetaClassInfo[];
   entityViews?: View[];
   entity?: MetaClassInfo;
-  view: View;
+  view?: View;
 }
 
 export function initStore(): Store<AppState> {
@@ -23,7 +23,6 @@ export function initStore(): Store<AppState> {
       metadata,
       entity,
       entityViews,
-
     }),
     applyMiddleware(thunk)
   );

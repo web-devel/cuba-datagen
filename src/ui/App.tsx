@@ -4,9 +4,9 @@ import Login from './login/Login';
 import AppUrlForm from "./login/AppUrlForm";
 import Main from "./main/Main";
 import {connect} from "react-redux";
-import {AppState} from "./redux/store";
+import {AppState} from "../redux/store";
 import {Dispatch} from "redux";
-import {Actions, setAppUrl} from "./redux/actions";
+import {Actions, setAppUrl} from "../redux/actions";
 
 interface Props {
   loggedIn: boolean;

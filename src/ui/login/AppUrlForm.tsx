@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {FormEvent} from "react";
-import {DEFAULT_APP_URL} from "../index";
+import {DEFAULT_APP_URL} from "../../index";
 
 interface Props {
   appUrl?: string;

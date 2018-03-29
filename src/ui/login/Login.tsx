@@ -2,7 +2,7 @@ import * as React from "react";
 import {FormEvent} from "react";
 import {connect} from "react-redux";
 import {Dispatch} from "redux";
-import {Actions, login} from "../redux/actions";
+import {Actions, login} from "../../redux/actions";
 
 interface Props {
   login(login: string, pass: string): void;

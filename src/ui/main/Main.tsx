@@ -4,9 +4,10 @@ import EntitiesList from "./EntitiesList";
 import ViewSelect from "./ViewSelect";
 import './main.css';
 import {connect} from "react-redux";
-import {AppState} from "../redux/store";
-import {Actions, selectEntity, selectView} from "../redux/actions";
+import {AppState} from "../../redux/store";
+import {Actions, selectEntity, selectView} from "../../redux/actions";
 import {Dispatch} from "redux";
+import EntityForm from "./EntityForm";
 
 interface Props {
   metadata: MetaClassInfo[];
@@ -28,6 +29,7 @@ class Main extends React.Component<Props> {
         </div>
         <div className={'main'}>
           <ViewSelect views={entityViews} entity={entity} metadata={metadata} onViewSelect={onViewSelect}/>
+          <EntityForm/>
         </div>
       </div>
     );
