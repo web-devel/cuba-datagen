@@ -1,0 +1,11 @@
+.entities-list-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.entities-list {
+  flex-grow: 1;
+  overflow-y: auto;
+  margin: 0;
+}

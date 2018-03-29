@@ -1,6 +1,7 @@
 import * as React from 'react';
+import {HTMLProps} from 'react';
 import {MetaClassInfo} from "@cuba-platform/rest/dist-node/model";
-import {HTMLProps} from "react";
+import './entitiesList.css';
 
 interface Props extends HTMLProps<EntitiesList> {
   metaClasses: MetaClassInfo[];
@@ -23,13 +24,15 @@ export default class EntitiesList extends React.Component<Props, State> {
     const {metaClasses} = this.props;
 
     return (
-      <div>
-        <input type="text" placeholder="Filter" value={filterVal} onChange={this.changeFilterVal}/>
-        <label>
-          <input type="checkbox" checked={showSystemEntities} onChange={this.toggleShowSystemEntities}/>
-          Show system entities
-        </label>
-        <ul>
+      <div className={'entities-list-container'}>
+        <div className="filter">
+          <input type="text" placeholder="Filter" value={filterVal} onChange={this.changeFilterVal}/>
+          <label>
+            <input type="checkbox" checked={showSystemEntities} onChange={this.toggleShowSystemEntities}/>
+            Show system entities
+          </label>
+        </div>
+        <ul className={'entities-list'}>
           {filterMetaClasses(metaClasses, {showSystemEntities, filterVal}).map(metaClass =>
             <li key={metaClass.entityName}>
               <a href="#" onClick={(e) => this.selectEntity(e, metaClass)}>
@@ -47,13 +50,13 @@ export default class EntitiesList extends React.Component<Props, State> {
     this.props.onEntitySelect(metaClass);
   };
 
-  private toggleShowSystemEntities = (e: React.ChangeEvent<HTMLInputElement>):void => {
+  private toggleShowSystemEntities = (e: React.ChangeEvent<HTMLInputElement>): void => {
     this.setState({showSystemEntities: e.target.checked});
   };
 
-  private changeFilterVal = (e: React.ChangeEvent<HTMLInputElement>):void => {
+  private changeFilterVal = (e: React.ChangeEvent<HTMLInputElement>): void => {
     this.setState({filterVal: e.target.value});
-  }
+  };
 }
 
 function filterMetaClasses(metaClasses: MetaClassInfo[],

@@ -22,11 +22,11 @@ class Main extends React.Component<Props> {
   render() {
     const {metadata, entity, entityViews, onEntitySelect, onViewSelect} = this.props;
     return (
-      <div className={'main'}>
-        <div className="drawer">
+      <div className={'main-layout'}>
+        <div className={'drawer'}>
           <EntitiesList metaClasses={metadata} onEntitySelect={onEntitySelect}/>
         </div>
-        <div>
+        <div className={'main'}>
           <ViewSelect views={entityViews} entity={entity} metadata={metadata} onViewSelect={onViewSelect}/>
         </div>
       </div>

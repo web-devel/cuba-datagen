@@ -1,5 +1,7 @@
-.main {
+.main-layout {
   display: flex;
+  align-items: stretch;
+  height: 100vh;
 }
 
 .drawer {
