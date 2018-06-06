@@ -9,6 +9,7 @@ import {
 import {CubaApp} from "@cuba-platform/rest/dist-node/cuba";
 import {MetaClassInfo, View} from "@cuba-platform/rest/dist-node/model";
 import {APP_NAME} from "../index";
+import {GenerationState} from "./store";
 
 export const appUrl = (urlState: string | null = null, action: Actions): string | null => {
   if (action.type === ActionType.SET_APP_URL) {
@@ -53,6 +54,9 @@ export const entityViews = (entityViewsState: View[] | null = null, action: Acti
   return entityViewsState;
 };
 
+export const generation = (generationState: GenerationState = {}, action: Actions) => {
+  return generationState;
+};
 
 
 /**

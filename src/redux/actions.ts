@@ -76,13 +76,23 @@ export const selectEntity = (metaClassInfo: MetaClassInfo) => (dispatch: Dispatc
     type: ActionType.ENTITY_SELECTED,
     entity: metaClassInfo
   });
-  return store.getState().cubaApp!.loadEntityViews(metaClassInfo.entityName).then((loadedViews) => {
-    dispatch<EntityViewsLoadedAction>({
-      loadedViews,
-      metaClassInfo,
-      type: ActionType.ENTITY_VIEWS_LOADED,
+
+  const cubaApp = store.getState().cubaApp;
+
+  const allViewsPromise = cubaApp!.loadEntityViews(metaClassInfo.entityName);
+  const baseViewPromise = cubaApp!.loadEntityView(metaClassInfo.entityName, '_base');
+  const minimalViewPromise = cubaApp!.loadEntityView(metaClassInfo.entityName, '_minimal');
+
+  Promise.all([allViewsPromise, baseViewPromise, minimalViewPromise])
+    .then(([customViews, baseView, minimalView]) => {
+      let loadedViews = [...customViews, baseView, minimalView];
+
+      dispatch<EntityViewsLoadedAction>({
+        type: ActionType.ENTITY_VIEWS_LOADED,
+        loadedViews,
+        metaClassInfo
+      });
     });
-  });
 };
 
 export const selectView = (view: View): ViewSelectedAction => {

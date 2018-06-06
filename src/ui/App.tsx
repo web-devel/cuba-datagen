@@ -1,5 +1,5 @@
 import * as React from 'react';
-import './App.css';
+
 import Login from './login/Login';
 import AppUrlForm from "./login/AppUrlForm";
 import Main from "./main/Main";

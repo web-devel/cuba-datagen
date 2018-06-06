@@ -27,11 +27,13 @@ class ViewSelect extends React.Component<Props> {
       );
     }
 
+    const {entityName} = entity;
+
     return (
       <div>
-        <p>{entity!.entityName}</p>
+        <p>{entityName}</p>
         <select onChange={this.selectView}>{views.map(view =>
-          <option key={view.name} value={view.name}>{view.name}</option>)}
+          <option key={entityName + ':' + view.name} value={view.name}>{view.name}</option>)}
         </select>
       </div>
     );

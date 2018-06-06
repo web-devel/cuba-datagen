@@ -13,8 +13,8 @@ class EntityForm extends React.Component<Props> {
   }
 }
 
-const mapStateToProps = ({fieldsGraph}: AppState) => {
-  return {fieldsGraph};
+const mapStateToProps = ({generation}: AppState) => {
+  return {fieldsGraph: generation.graph};
 };
 
 export default connect(mapStateToProps)(EntityForm);
